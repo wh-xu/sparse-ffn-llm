@@ -736,13 +736,22 @@ def extract_llama2_mlp_input_weights(model):
 def enable_llama2_mlp_svd(
     model, dict_gate_weight_svd, dict_density_threshold, keep_ratio
 ):
+    num_layers = 0
+    for i, layer in enumerate(model.model.layers):
+        list_mlp_layer = get_layers(module=layer, layers=[LlamaMLP])
+        num_layers += len(list_mlp_layer)
+        
+    
     for i, layer in enumerate(model.model.layers):
         list_mlp_layer = get_layers(module=layer, layers=[LlamaMLP])
 
+        skip_layers = 3
         for name, module in list_mlp_layer.items():
             layer_name = f"{name}-{i}"
-            print(layer_name)
-            if isinstance(module, LlamaMLP):
+
+            if i>=skip_layers and i<num_layers-skip_layers and isinstance(module, LlamaMLP):
+            # if isinstance(module, LlamaMLP):
+                print(f"{layer_name} of {num_layers}")
                 module.forward = types.MethodType(layers.mlp_gate3_svd, module)
                 module.gate_weight_Q_svd = (
                     dict_gate_weight_svd[layer_name + "-Q"].bfloat16().to("cuda")
