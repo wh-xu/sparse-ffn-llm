@@ -741,7 +741,7 @@ def enable_llama2_mlp_svd(
 
         for name, module in list_mlp_layer.items():
             layer_name = f"{name}-{i}"
-            # print(layer_name)
+            print(layer_name)
             if isinstance(module, LlamaMLP):
                 module.forward = types.MethodType(layers.mlp_gate3_svd, module)
                 module.gate_weight_Q_svd = (

@@ -165,20 +165,6 @@ def main():
 
             mlp_data_dict = extract_llama2_mlp_input_weights(model)
             torch.save(mlp_data_dict, args.model_args["out_file"])
-
-    # if len(model_config) > 2:
-    #     fname = model_config[2]
-    #     if "opt" in model_config[0].lower() and "trace" in model_config[1].lower():
-    #         from streaming_llm.sparse_opt import save_opt_mlp_act_trace
-
-    #         save_opt_mlp_act_trace(model, fname)
-    #     elif (
-    #         "prosparse-llama" in model_config[0].lower()
-    #         and "trace" in model_config[1].lower()
-    #     ):
-    #         from streaming_llm.sparse_llama import save_prosparse_llama_mlp_act_trace
-
-    #         save_prosparse_llama_mlp_act_trace(model, fname)
     #############################################################
 
 
