@@ -669,9 +669,9 @@ def enable_llama2_topk(model, keep_ratio):
                 module.keep_ratio = keep_ratio
                 module.forward = types.MethodType(layers.mlp_gate3_topk, module)
 
-            if isinstance(module, LlamaSdpaAttention):
-                module.keep_ratio = keep_ratio
-                module.forward = types.MethodType(layers.qkvo_topk, module)
+            # if isinstance(module, LlamaSdpaAttention):
+            #     module.keep_ratio = keep_ratio
+            #     module.forward = types.MethodType(layers.qkvo_topk, module)
 
 
 def enable_llama2_ffn_sample(model):
