@@ -139,32 +139,12 @@ def main():
             limit=args.limit,
             batch_size="auto",
             cache_requests=True,
-            # device="cuda",
         )
         print(make_table(results))
 
     if "ppl" in args.eval:
         ppl = eval_ppl(model=model, tokenizer=tokenizer, dataset="wikitext")
         print(f"PPL = {ppl:.3f}")
-    #############################################################
-
-    #############################################################
-    # Dump trace
-    #############################################################
-    #############################################################
-
-    #############################################################
-    # Dump trace
-    #############################################################
-    # from streaming_llm.sparse_llama import get_llama_mlp_sparsity
-    # get_llama_mlp_sparsity(model)
-
-    if "Llama-2" in model_config[0]:
-        if "sample" in model_config[1].lower():
-            from sparse_llm.sparse_llama import extract_llama2_mlp_input_weights
-
-            mlp_data_dict = extract_llama2_mlp_input_weights(model)
-            torch.save(mlp_data_dict, args.model_args["out_file"])
     #############################################################
 
 
